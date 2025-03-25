@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+
+    <script>
+        const elem = document.getElementById('canvas-container');
+        const params = {
+            width: 500,
+            height: 500,
+            fullscreen: false,
+            autostart: true
+        };
+
+        // 1. Crie um círculo usando o método two.makeCircle(x, y, radius).
+        const two = new Two(params).appendTo(elem);
+
+        const circle = two.makeCircle(100, 250, 50);
+        circle.fill = 'blue';
+
+        // 2. Use two.bind('update', ...) para alterar a cor do círculo ao longo do tempo, fazendo uma transição suave entre o vermelho e o azul. -->
+
+        two.bind('update', function () {
+            circle.translation.x += 2;
+            if (circle.translation.x > 500) circle.translation.x = 0;
+
+            const t = (Date.now() % 2000) / 2000;
+            circle.fill = `rgb(${Math.floor(t * 255)}, 0, ${Math.floor((1 - t)
+                * 255)})`;
+        });
+    </script>
+</body>
+
+</html>

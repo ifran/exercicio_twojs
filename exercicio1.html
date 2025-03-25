@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+
+    <script>
+        const elem = document.getElementById('canvas-container');
+        const params = {
+            width: 500,
+            height: 500,
+            fullscreen: false,
+            autostart: true
+        };
+
+        // 1. Crie uma linha usando o método two.makeLine(x1, y1, x2, y2).
+
+        const two = new Two(params).appendTo(elem);
+
+        const x1 = 50, y1 = 50, x2 = 450, y2 = 50;
+        line = two.makeLine(x1, y1, x2, y2); // Criar uma linha entre dois pontos
+
+        // 2. Use a função two.bind('update', ...) para atualizar a posição da linha a cada quadro e fazer o movimento contínuo.
+        two.bind('update', function () {
+            const t = (Date.now() % 2000) / 2000;
+            line.translation.x += 2;
+
+            // 3. Quando a linha atingir o final, ela deve voltar para a posição inicial. -->
+            if (line.translation.x > 500) line.translation.x = 0;
+        });
+
+        two.play();
+    </script>
+</body>
+
+</html>

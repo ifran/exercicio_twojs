@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+    <script>
+        const elem = document.getElementById('canvas-container');
+        const params = {
+            width: 500,
+            height: 500,
+            fullscreen: false,
+            autostart: true
+        };
+
+        const two = new Two(params).appendTo(elem);
+
+        const x1 = 500, y1 = 550, x2 = 150, y2 = 150;
+        const x = 200, y = 200, width = 80, height = 50, radius = 100;
+        const sides = 500;
+        const outerRadius = 100;
+        const innerRadius = 200;
+        const points = 10;
+
+        // two.makeLine(x1, y1, x2, y2);
+        // two.makeRectangle(x, y, width, height);
+        // two.makeRoundedRectangle(x, y, width, height, radius);
+
+        two.makePolygon(x, y, radius, sides); // Criar um polígono regular
+        shape = two.makeStar(x, y, outerRadius, innerRadius, points); // Criar uma
+
+        shape.fill = 'blue'; // Cor de preenchimento
+        shape.stroke = 'black'; // Cor da borda
+        shape.linewidth = 2; // Espessura da linha
+        shape.opacity = 0.8; // Transparência
+
+        const circle = two.makeCircle(100, 250, 50);
+        circle.fill = 'blue';
+        two.bind('update', function () {
+            circle.translation.x += 2;
+            if (circle.translation.x > 500) circle.translation.x = 0;
+        });
+        two.play();
+
+        two.bind('update', function () {
+            const t = (Date.now() % 2000) / 2000;
+            circle.fill = `rgb(${Math.floor(t * 255)}, 0, ${Math.floor((1 - t)
+                * 255)})`;
+        });
+
+
+        const square1 = two.makeRectangle(100, 250, 50, 50);
+        const square2 = two.makeRectangle(180, 250, 50, 50);
+        const group = two.makeGroup(square1, square2);
+        group.rotation = Math.PI / 4;
+
+
+        const gradient = two.makeLinearGradient(0, 0, 100, 100,
+            new Two.Stop(0, 'red'),
+            new Two.Stop(1, 'blue')
+        );
+        const rect = two.makeRectangle(250, 250, 100, 100);
+        rect.fill = gradient;
+
+        const radialGradient = two.makeRadialGradient(250, 250, 100, [
+            new Two.Stop(0, 'yellow'),
+            new Two.Stop(1, 'green')
+        ]);
+        rect.fill = radialGradient;
+
+
+        two.update();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/two.js/0.8.10/two.min.js"></script>
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+    <script>
+
+        const elem = document.getElementById('canvas-container');
+        const params = {
+            width: 500,
+            height: 500,
+            fullscreen: false,
+            autostart: true
+        };
+
+        const x = 50, y = 50, radius = 50, sides = 6;
+        const two = new Two(params).appendTo(elem);
+
+        // 1. Use o método two.makePolygon(x, y, radius, sides) para criar o polígono.
+        polygon = two.makePolygon(x, y, radius, sides);
+
+        // 2. Defina a cor do preenchimento como vermelha e a borda como preta -->
+        polygon.fill = 'red';
+        shape.stroke = 'black'; // Cor da borda
+    </script>
+</body>
+
+</html>
